@@ -1,2 +1,2 @@
 # rosalind
-TBD L8R
+Rosalind bioinformatics poblems solutions 
