@@ -3,8 +3,7 @@
    [clojure.string :as str]))
 
 
-(defn solve-rna
-  [s]
+(defn solve-rna [s]
   (-> s
       (str/replace "T" "U")
       (str/replace "\n" "")))

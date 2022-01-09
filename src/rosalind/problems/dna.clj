@@ -1,8 +1,7 @@
 (ns rosalind.problems.dna)
 
 
-(defn solve-dna
-  [s]
+(defn solve-dna [s]
   (->> ["A" "C" "G" "T"]
        (map #(re-seq (re-pattern %) s))
        (map count)
@@ -10,7 +9,6 @@
        (apply str)))
 
 
-(comment
-  (->> "resources/inputs/rosalind_dna.txt"
-       slurp
-       solve-dna))
+(->> "resources/inputs/rosalind_dna.txt"
+     slurp
+     solve-dna)
