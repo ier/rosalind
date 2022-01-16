@@ -14,8 +14,8 @@
   (is (= 19
          (#'rosalind.problems.fib/fib 5 3)))
 
-  #_(testing "solve-fib-test"
+  (testing "solve-fib-test"
     (let [data (slurp "resources/inputs/rosalind_fib.txt")
-          expected "..."]
+          expected 1850229480761]
       (is (= expected
              (solve-fib data))))))
