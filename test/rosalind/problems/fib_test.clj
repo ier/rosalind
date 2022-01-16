@@ -10,6 +10,9 @@
           expected 19]
       (is (= expected
              (solve-fib sample)))))
+  
+  (is (= 19
+         (#'rosalind.problems.fib/fib 5 3)))
 
   #_(testing "solve-fib-test"
     (let [data (slurp "resources/inputs/rosalind_fib.txt")

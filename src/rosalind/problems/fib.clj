@@ -3,13 +3,14 @@
    [clojure.string :as str]))
 
 
-(defn fib
-  [n x]
-  (case n
-    0 0
-    1 1
-    (+ (fib (- n 1) x)
-       (+ (dec x) (fib (- n 2) x)))))
+(defn- fib
+  [cycles delta]
+  (loop [cntr 1 y 1 a 0]
+    #_(prn {:cntr cntr :y y :a a})
+    (if (< cntr cycles)
+      (let [y' (* a delta)]
+        (recur (inc cntr) y' (+ a y)))
+      (+ y a))))
 
 
 (defn- solve
