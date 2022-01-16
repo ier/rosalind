@@ -6,10 +6,8 @@
 (defn- fib
   [cycles delta]
   (loop [cntr 1 y 1 a 0]
-    #_(prn {:cntr cntr :y y :a a})
     (if (< cntr cycles)
-      (let [y' (* a delta)]
-        (recur (inc cntr) y' (+ a y)))
+      (recur (inc cntr) (* a delta) (+ a y))
       (+ y a))))
 
 
