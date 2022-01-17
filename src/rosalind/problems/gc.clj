@@ -10,9 +10,11 @@
     (float percentage)))
 
 
-(defn- solve [xs]
-  (let [{:keys [title value]}
-        (reduce max-key val (map #(assoc % :value (gc %)) xs))]
+(defn- solve
+  "https://stackoverflow.com/a/13724986/404022"
+  [xs]
+  (let [m (map #(assoc % :value (gc %)) xs)
+        {:keys [title value]} (apply max-key :value m)]
     (str title " " value "%")))
 
 
