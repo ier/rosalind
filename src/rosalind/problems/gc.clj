@@ -13,13 +13,13 @@
 (defn- solve [xs]
   (let [{:keys [title value]}
         (reduce max-key val (map #(assoc % :value (gc %)) xs))]
-    (str title "\n" value)))
+    (str title " " value "%")))
 
 
 (defn- parse [s]
-  (let [[a b c] (str/split s #"\n")]
+  (let [[a & rest] (str/split s #"\n")]
     {:title a
-     :content (str b c)}))
+     :content (apply str rest)}))
 
 
 (defn solve-gc [s]
@@ -28,4 +28,4 @@
     (solve parsed)))
 
 
-(solve-gc (slurp "resources/inputs/rosalind_gc_sample.txt"))
+(solve-gc (slurp "resources/inputs/rosalind_gc.txt"))
