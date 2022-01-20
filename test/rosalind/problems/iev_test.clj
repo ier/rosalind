@@ -11,8 +11,8 @@
       (is (= expected
              (solve-iev sample)))))
 
-  #_(testing "solve-iprb-test"
-      (let [data (slurp "resources/inputs/rosalind_iev.txt")
-            expected "..."]
-        (is (= expected
-               (solve-iev data))))))
+  (testing "solve-iprb-test"
+    (let [data (slurp "resources/inputs/rosalind_iev.txt")
+          expected 159796.0]
+      (is (= expected
+             (solve-iev data))))))
