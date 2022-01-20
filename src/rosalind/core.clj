@@ -1,7 +1,16 @@
 (ns rosalind.core
-  (:gen-class))
+  (:require
+   [clojure.string :refer [split trim-newline]]))
 
-#_(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println "Hello, World!"))
+
+(defn cut [s]
+  (let [v (-> s
+              trim-newline
+              (split #">"))]
+    (filter seq v)))
+
+
+(defn parse [s]
+  (let [[a & rest] (split s #"\n")]
+    {:title a
+     :content (apply str rest)}))
