@@ -5,6 +5,10 @@
 
 
 (deftest solve-revp-test
+  (testing "reverse-palindrom?"
+    (is (#'rosalind.problems.revp/reverse-palindrom? "GATATC"))
+    (is (#'rosalind.problems.revp/reverse-palindrom? "CTATAG")))
+
   (testing "solve-revp-sample-test"
     (let [sample (slurp "resources/inputs/rosalind_revp_sample.txt")
           expected "4 6\n5 4\n6 6\n7 4\n17 4\n18 4\n20 6\n21 4"

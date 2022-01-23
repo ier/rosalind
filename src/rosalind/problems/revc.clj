@@ -3,7 +3,7 @@
    [clojure.string :as str]))
 
 
-(defn- rev [c]
+(defn rev [c]
   (cond
     (= c \A) \T
     (= c \T) \A
