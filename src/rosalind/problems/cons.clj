@@ -12,24 +12,40 @@
     (map-invert (frequencies xs)))))
 
 
+(defn- windows
+  [s idx]
+  (subs s idx (inc idx)))
+
+
+(defn- foo [idx xs]
+  {:idx idx
+   :xs (map #(windows % idx) xs)})
+
+
+(defn- stat
+  [s pattern]
+  {:s s
+   :pattern pattern
+   :result (count (re-seq (re-pattern pattern) s))})
+
+
 (defn- solve
   [xs]
-  (let [len (count (first xs))
-        top (->> (map (fn [rng]
+  (let [patterns ["A" "C" "G" "T"]
+        idxs (->> xs
+                  first
+                  count
+                  range)
+        top (->> idxs
+                 (map (fn [idx]
                         (most-frequent
-                         (map
-                          #(subs % rng (inc rng))
-                          xs)))
-                      (range len))
+                         (map #(windows % idx) xs))))
                  (apply str))
-        stats (map (fn [rng hs]
-                     (map
-                      #(subs % rng (inc rng))
-                      xs))
-                   (range len)
-                   #{"A" "C" "G" "T"})]
+        stats (map identity patterns)]
     {:top top
-     :stats stats}))
+     :stats stats
+     :dbg (->> idxs
+               (map #(foo % xs)))}))
 
 
 (defn solve-cons [s]
