@@ -60,4 +60,4 @@
        solve))
 
 
-(solve-cons (slurp "resources/inputs/rosalind_cons_sample.txt"))
+(solve-cons (slurp "resources/inputs/rosalind_cons.txt"))
