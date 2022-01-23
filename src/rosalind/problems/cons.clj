@@ -12,40 +12,38 @@
     (map-invert (frequencies xs)))))
 
 
-(defn- windows
+(defn- window
   [s idx]
   (subs s idx (inc idx)))
 
 
-(defn- foo [idx xs]
-  {:idx idx
-   :xs (map #(windows % idx) xs)})
+(defn i
+  [pos lines]
+  (map #(window % pos) lines))
 
 
-(defn- stat
-  [s pattern]
-  {:s s
-   :pattern pattern
-   :result (count (re-seq (re-pattern pattern) s))})
+(defn- stat-line
+  [pattern lines idxs]
+  (let [positions (mapv #(i % lines) idxs)]
+    (str pattern ": " positions)))
 
 
 (defn- solve
   [xs]
-  (let [patterns ["A" "C" "G" "T"]
-        idxs (->> xs
+  (let [idxs (->> xs
                   first
                   count
                   range)
         top (->> idxs
                  (map (fn [idx]
                         (most-frequent
-                         (map #(windows % idx) xs))))
+                         (map #(window % idx) xs))))
                  (apply str))
-        stats (map identity patterns)]
+        stats (->> ["A" "C" "G" "T"]
+                   (map (fn [p]
+                          (stat-line p xs idxs))))]
     {:top top
-     :stats stats
-     :dbg (->> idxs
-               (map #(foo % xs)))}))
+     :stats stats}))
 
 
 (defn solve-cons [s]
