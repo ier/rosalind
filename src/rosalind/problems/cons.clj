@@ -17,15 +17,21 @@
   (subs s idx (inc idx)))
 
 
-(defn i
+(defn- multiply
   [pos lines]
-  (map #(window % pos) lines))
+  (map (fn [s] (window s pos)) lines))
 
 
 (defn- stat-line
   [pattern lines idxs]
-  (let [positions (mapv #(i % lines) idxs)]
-    (str pattern ": " positions)))
+  (let [stat (->> idxs
+                  (map #(multiply % lines))
+                  (map (fn [position] (filter #(= pattern %) position)))
+                  (map count)
+                  (map str)
+                  (interpose " ")
+                  (reduce str))]
+    (str pattern ": " stat)))
 
 
 (defn- solve
@@ -40,10 +46,10 @@
                          (map #(window % idx) xs))))
                  (apply str))
         stats (->> ["A" "C" "G" "T"]
-                   (map (fn [p]
-                          (stat-line p xs idxs))))]
-    {:top top
-     :stats stats}))
+                   (map (fn [p] (stat-line p xs idxs)))
+                   (interpose "\n")
+                   (apply str))]
+    (str top "\n" stats)))
 
 
 (defn solve-cons [s]
