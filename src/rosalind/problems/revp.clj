@@ -16,7 +16,8 @@
   (loop [s xs idx window-size acc []]
     (if (< (count s) window-size)
       acc
-      (if (> idx (count s))
+      (if (or (> idx (count s))
+              (> idx 12))
         (recur (apply str (rest s)) window-size acc)
         (let [chunk (subs s 0 idx)
               rev-pal? (reverse-palindrom? chunk)
@@ -25,7 +26,7 @@
                      acc)]
           (prn {:s s :idx idx :acc acc :chunk chunk :rev-pal? rev-pal?})
           (if rev-pal?
-            (recur (apply str (rest s)) 0 acc')
+            (recur (apply str (rest s)) idx acc')
             (recur s (inc idx) acc')))))))
 
 
