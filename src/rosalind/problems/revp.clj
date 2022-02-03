@@ -22,7 +22,9 @@
         (let [chunk (subs s 0 idx)
               rev-pal? (reverse-palindrom? chunk)
               acc' (if rev-pal?
-                     (conj acc chunk)
+                     (conj acc {:chunk chunk
+                                :pos idx
+                                :len (count chunk)})
                      acc)]
           (prn {:s s :idx idx :acc acc :chunk chunk :rev-pal? rev-pal?})
           (if rev-pal?
