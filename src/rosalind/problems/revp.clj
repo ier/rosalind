@@ -12,13 +12,15 @@
 
 
 (defn- solve
-  [window-size xs]
-  (loop [s xs idx window-size acc []]
-    (if (< (count s) window-size)
+  [xs min-len max-len]
+  (loop [s xs
+         idx min-len
+         acc []]
+    (if (< (count s) min-len)
       acc
       (if (or (> idx (count s))
-              (> idx 12))
-        (recur (apply str (rest s)) window-size acc)
+              (> idx max-len))
+        (recur (apply str (rest s)) min-len acc)
         (let [chunk (subs s 0 idx)
               rev-pal? (reverse-palindrom? chunk)
               acc' (if rev-pal?
@@ -32,13 +34,14 @@
             (recur s (inc idx) acc')))))))
 
 
-(defn solve-revp [s]
+(defn solve-revp
+  [s]
   (->> s
        core/cut
        (map core/parse)
        first
        :content
-       (solve 4)))
+       (#(solve % 4 12))))
 
 
 (solve-revp (slurp "resources/inputs/rosalind_revp_sample.txt"))
