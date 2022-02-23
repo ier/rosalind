@@ -22,10 +22,10 @@
 (defn- solve
   [xs min-len max-len]
   (loop [pos 1 s xs len min-len acc []]
-    (if (< (count s) min-len)
+    (if (or (> len (count s))
+            (< (count s) min-len))
       (build-result acc)
-      (if (or (< (count s) len)
-              (> len max-len))
+      (if (> len max-len)
         (recur (inc pos) (apply str (rest s)) min-len acc)
         (if (reverse-palindrom? (subs s 0 len))
           (recur (inc pos) (apply str (rest s)) min-len (conj acc [pos len]))
