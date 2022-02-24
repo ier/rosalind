@@ -21,15 +21,20 @@
 
 (defn- solve
   [xs min-len max-len]
-  (loop [pos 1 s xs len min-len acc []]
-    (if (or (> len (count s))
-            (< (count s) min-len))
-      (build-result acc)
-      (if (> len max-len)
-        (recur (inc pos) (apply str (rest s)) min-len acc)
-        (if (reverse-palindrom? (subs s 0 len))
-          (recur (inc pos) (apply str (rest s)) min-len (conj acc [pos len]))
-          (recur pos s (inc len) acc))))))
+  (when (> (count xs) min-len)
+    (loop [pos 1 s xs len min-len acc []]
+      (prn pos s len acc)
+      (if (> len (count s))
+        (build-result acc)
+        (let [pos' (if (= len (count s)) (inc pos) pos)
+              s' (if (= len max-len) (apply str (rest s)) s)
+              str' (subs s 0 len)
+              acc' (if (reverse-palindrom? str') (conj acc [pos len]) acc)
+              len' (if (= len max-len) min-len (inc len))]
+          (recur pos' s' len' acc'))))))
+
+
+(solve "TATATA" 4 12)
 
 
 (defn solve-revp
