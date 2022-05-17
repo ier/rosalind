@@ -12,19 +12,19 @@
     (is (#'rosalind.problems.revp/reverse-palindrom? "TATA"))
     (is (#'rosalind.problems.revp/reverse-palindrom? "TATATA")))
 
-  (testing "solve-revp-sample-test"
-    (let [sample (slurp "resources/inputs/rosalind_revp_sample.txt")
-          expected "4 6\n5 4\n6 6\n7 4\n17 4\n18 4\n20 6\n21 4"
-          actual (solve-revp sample)]
-      (is (= expected
-             actual))))
-
   (testing "solve-revp-corner-cases-test"
     (is (= "1 4\n2 4\n3 4\n1 6"
            (solve-revp "TATATA")))
 
     (is (= "1 6\n1 12\n2 4\n2 10\n3 8\n4 6\n5 4\n7 6\n8 4"
            (solve-revp "TTTAAATTTAAA"))))
+
+  (testing "solve-revp-sample-test"
+    (is (= "4 6\n5 4\n6 6\n7 4\n17 4\n18 4\n20 6\n21 4"
+           (->> "resources/inputs/rosalind_revp_sample.txt"
+                slurp
+                solve-revp))))
+
   
   #_
   (testing "solve-revp-test"
